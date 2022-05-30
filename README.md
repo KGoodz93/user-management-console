@@ -6,7 +6,7 @@ Once the script has been started, this will prompt for a username and password.
 
 The password will be visible. However, the password will stay hidden.
 
-![image](https://user-images.githubusercontent.com/82043281/148586910-09600730-86ed-4734-8341-5445e6d12d28.png)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/82043281/170991694-6a647de5-eee9-4ca5-8ffb-9f67b2cf70df.gif)
 
 Upon successful login, the user will be presented with multiple options to manage users from the database.
 

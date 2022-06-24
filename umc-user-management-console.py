@@ -16,7 +16,7 @@ clear = lambda: os.system("cls")
 
 # Database
 
-db = fr"C:\Users\{user}\Dropbox\Dev\Python\Projects\User Management Console\db\users.db.db"
+db = r"db/users.db"
 connection = sqlite3.connect(db)
 cursor = connection.cursor()
 table = "credentials"
@@ -45,17 +45,15 @@ def view_users():
     print("--- View UID ---")
     print("\nThese users are currently active: \n")
 
-    viewusers = cursor.execute("SELECT * FROM CREDENTIALS order by accountcreation DESC;")
-
-    for i in viewusers:
-        print(i[2], "- " + i[0], i[1])
+    for i in cursor.execute("SELECT * FROM CREDENTIALS order by accountcreation DESC;"):
+        print(f'{i[2]} - {i[0]} {i[1]}')
 
 def add_user():
     print("--- Add Users ---")
 
     value1 = input("\nEnter First Name: ").title()
     value2 = input("Enter Last Name: ").title()
-    value3 = (value2[0:5].lower() + value1[0:3].lower())
+    value3 = (f'{value2[0:5].lower()}{value1[0:3].lower()}')
     value4 = "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase, k=20))
 
     try:
@@ -75,7 +73,7 @@ def add_user():
         mail.Subject = f"{value1} {value2} - UMC Username"
         mail.Body = "Hi,\n\n" \
                     f"Your username is: {value3}\n\n" \
-                    f"Password will be send in a seperate email."
+                    f"Password will be send in a separate email."
         mail.Send()
 
         # Send Mail 2
@@ -98,13 +96,11 @@ def delete_user():
 
     main1 = input("\nEnter a UID: ")
 
-    result = cursor.execute(f"SELECT loginid FROM {table} WHERE loginid=(?);", (main1,))
-
-    for i in result:
+    for i in cursor.execute(f"SELECT loginid FROM {table} WHERE loginid=(?);", (main1,)):
         if i[0] == main1:
             cursor.execute(f"DELETE FROM {table} WHERE loginid=(?)", (main1,))
             connection.commit()
-            print("\nThe below user has been deleted:\n\n" + main1)
+            print(f'\nThe below user has been deleted:\n\n{main1}')
             submenu()
     else:
         clear()
